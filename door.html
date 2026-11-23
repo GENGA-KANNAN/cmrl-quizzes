@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Door System: 15 interactive multiple-choice questions with instant answer feedback.">
+<title>Door System — Interactive MCQ Quiz</title>
+ 
+<style>
+:root{--primary:#2563eb;--primary-light:#60a5fa;--success:#10b981;--danger:#ef4444;--accent:#8b5cf6;--bg-gradient:linear-gradient(135deg,#090d16,#111827,#070a10);--glass-bg:rgba(17,24,39,.75);--glass-border:rgba(255,255,255,.08);--text-main:#f3f4f6;--text-muted:#9ca3af}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;min-height:100svh;padding:28px 20px;background:var(--bg-gradient);background-attachment:fixed;color:var(--text-main);font-family:Inter,Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center}button{font:inherit;cursor:pointer;color:inherit}button:disabled{cursor:default}button:focus-visible,a:focus-visible{outline:3px solid #93c5fd;outline-offset:4px}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:not(:disabled):active{transform:scale(.985)}[hidden]{display:none!important}
+.wrapper{width:100%;max-width:1120px;position:relative;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:16px;box-shadow:0 30px 60px -15px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);overflow:hidden}.header{min-height:64px;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--glass-border);background:rgba(15,23,42,.7)}.brand{display:flex;align-items:center;gap:12px}.brand-mark{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid rgba(96,165,250,.3);background:rgba(37,99,235,.14);border-radius:9px;color:#93c5fd}.brand-mark svg{width:22px;height:22px}.header h1{font-size:15px;letter-spacing:1.5px;margin:0;text-transform:uppercase;font-weight:750}.brand p{margin:4px 0 0;font-size:11px;color:var(--text-muted);letter-spacing:.35px}.header-actions{display:flex;align-items:center;gap:8px}.badge{background:rgba(139,92,246,.16);border:1px solid rgba(139,92,246,.65);color:#c4b5fd;font-size:10px;font-weight:700;padding:6px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.8px;margin-right:6px}.small-btn{background:rgba(255,255,255,.04);border:1px solid var(--glass-border);border-radius:7px;padding:8px 12px;font-size:12px;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;transition:background .15s,border-color .15s}.small-btn svg{width:15px;height:15px}.small-btn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2)}
+.sub-bar{min-height:48px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:12px;padding:8px 24px;background:rgba(10,15,28,.8);border-bottom:1px solid var(--glass-border)}.menu-btn{justify-self:start}.counter{font-size:12px;letter-spacing:.7px;text-align:center;color:#cbd5e1;font-variant-numeric:tabular-nums}.score{text-align:right;font-size:12px;color:var(--text-muted)}.score strong{color:#a7f3d0;font-weight:700}.progress-track{height:3px;background:rgba(255,255,255,.04)}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .25s}
+.quiz{max-width:880px;margin:auto;padding:32px 32px 26px}.question-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.6px;color:var(--primary-light);text-transform:uppercase}.instruction{font-size:12px;color:var(--text-muted)}.question{margin:0 0 24px;font-size:25px;line-height:1.38;font-weight:650;letter-spacing:-.4px;min-height:69px;outline:none}.options{display:grid;gap:11px}.option{width:100%;display:flex;align-items:center;gap:15px;min-height:64px;text-align:left;border:1px solid #334155;border-radius:10px;background:linear-gradient(110deg,rgba(30,41,59,.55),rgba(15,23,42,.6));padding:13px 17px;line-height:1.5;transition:border-color .15s,background .15s,box-shadow .15s}.option:not(:disabled):hover{border-color:#60a5fa;background:rgba(37,99,235,.13);box-shadow:0 0 0 1px rgba(96,165,250,.08)}.letter{flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;font-size:13px;font-weight:700;color:#cbd5e1;border:1px solid rgba(148,163,184,.25);border-radius:7px;background:rgba(148,163,184,.07)}.option-text{font-size:15px;flex:1}.option-result{flex-shrink:0;font-size:20px;font-weight:700;min-width:20px;text-align:center}.option.is-correct{background:rgba(16,185,129,.2);border-color:var(--success);box-shadow:inset 0 0 0 1px rgba(16,185,129,.15);color:#d1fae5}.option.is-correct .letter{border-color:rgba(52,211,153,.5);background:rgba(16,185,129,.2);color:#a7f3d0}.option.is-correct .option-result{color:#34d399}.option.is-wrong{background:rgba(239,68,68,.2);border-color:var(--danger);box-shadow:inset 0 0 0 1px rgba(239,68,68,.15);color:#fee2e2}.option.is-wrong .letter{border-color:rgba(248,113,113,.5);background:rgba(239,68,68,.2);color:#fecaca}.option.is-wrong .option-result{color:#f87171}.option.is-muted{opacity:.55}
+.feedback{margin-top:15px;min-height:53px;border-radius:8px;padding:11px 14px;display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.55;background:rgba(148,163,184,.04);border:1px solid transparent;color:var(--text-muted)}.feedback strong{font-weight:700}.feedback.good{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.23);color:#a7f3d0}.feedback.bad{background:rgba(239,68,68,.07);border-color:rgba(239,68,68,.22);color:#fecaca}.feedback-icon{width:18px;flex-shrink:0;text-align:center;font-weight:700}.navigation{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:22px;padding-top:21px;border-top:1px solid var(--glass-border)}.nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--glass-border);border-radius:8px;min-height:42px;font-size:13px;font-weight:600;padding:10px 18px;background:rgba(255,255,255,.04)}.nav-btn:hover:not(:disabled){background:rgba(255,255,255,.1)}.nav-btn:disabled{opacity:.35}.nav-btn.primary{background:var(--primary);border-color:#3b82f6;box-shadow:0 4px 14px rgba(37,99,235,.17)}.nav-btn.primary:hover:not(:disabled){background:#1d4ed8}.nav-btn.primary:disabled{background:#1e3a5f;border-color:#334155;opacity:.65;color:#94a3b8}.nav-hint{font-size:11px;color:var(--text-muted);text-align:center}.footer{padding:12px 24px;border-top:1px solid var(--glass-border);display:flex;justify-content:space-between;gap:12px;background:rgba(10,15,28,.5);font-size:10px;letter-spacing:.35px;color:#94a3b8}.legend{display:flex;gap:14px}.legend span{display:inline-flex;align-items:center;gap:5px}.dot{width:6px;height:6px;border-radius:50%;background:var(--success)}.dot.red{background:var(--danger)}
+.question-panel{position:absolute;z-index:4;left:16px;right:16px;top:124px;padding:23px;background:#101827;border:1px solid #334155;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.7);max-width:450px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.panel-head h2{font-size:15px;margin:0}.question-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.jump-btn{position:relative;background:#1e293b;border:1px solid #334155;border-radius:7px;min-height:44px;font-size:13px}.jump-btn.current{outline:2px solid #93c5fd;outline-offset:2px}.jump-btn.correct{background:rgba(16,185,129,.18);border-color:#10b981;color:#a7f3d0}.jump-btn.wrong{background:rgba(239,68,68,.18);border-color:#ef4444;color:#fecaca}.jump-status{font-size:10px;margin-left:5px}.panel-note{font-size:12px;color:var(--text-muted);line-height:1.5;margin:15px 0 0}.result-view{padding:46px 32px 38px;max-width:880px;margin:auto;text-align:center}.result-view h2{font-size:32px;letter-spacing:-.7px;margin:13px 0}.result-intro{color:#cbd5e1;font-size:14px;line-height:1.6}.result-score{font-size:68px;font-weight:700;letter-spacing:-3px;color:#fff;margin:24px 0 0;line-height:1.15}.result-score small{font-size:24px;letter-spacing:-1px;color:var(--text-muted);font-weight:400}.result-percent{color:var(--primary-light);font-size:13px;margin-top:8px}.stats{display:flex;justify-content:center;margin:30px auto;gap:0;max-width:500px}.stat{flex:1;padding:0 16px}.stat+.stat{border-left:1px solid var(--glass-border)}.stat strong{display:block;font-size:25px;margin-bottom:7px}.stat span{font-size:12px;color:var(--text-muted)}.stat.correct strong{color:#34d399}.stat.wrong strong{color:#f87171}.result-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:28px 0}.result-note{font-size:11px;color:var(--text-muted)}dialog{color:var(--text-main);background:#111827;border:1px solid #334155;border-radius:14px;padding:28px;max-width:420px;width:calc(100% - 32px);box-shadow:0 20px 70px #0009}dialog::backdrop{background:rgba(3,7,18,.78);backdrop-filter:blur(5px)}dialog h2{margin:0 0 12px;font-size:22px}dialog p{font-size:14px;line-height:1.6;color:#cbd5e1}dialog .dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.wrapper:fullscreen{max-width:none;width:100vw;height:100vh;border:none;border-radius:0;overflow-y:auto;background:#090d16;display:flex;flex-direction:column}.wrapper:fullscreen .quiz,.wrapper:fullscreen .result-view{width:100%;margin:auto}.wrapper:fullscreen .footer{flex-shrink:0}.question,#resultTitle{scroll-margin-top:20px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1200px) and (min-height:850px){.quiz{padding-top:40px;padding-bottom:32px}.option{min-height:70px}.question{margin-bottom:28px}}
+@media(max-width:700px){body{padding:14px 10px;align-items:flex-start}.header{padding:13px 16px;gap:10px}.badge{display:none}.brand{gap:9px}.brand h1{font-size:13px}.brand p{font-size:10px}.small-btn{padding:8px 10px}.fullscreen-label{display:none}.sub-bar{padding:8px 16px;grid-template-columns:1fr auto 1fr;gap:8px}.quiz{padding:26px 20px 23px}.question{font-size:22px;min-height:0}.question-meta{margin-bottom:16px}.instruction{font-size:11px}.option{gap:12px;padding:12px;min-height:65px}.option-text{font-size:14px}.option-result{font-size:18px;min-width:16px}.navigation{margin-top:17px;gap:12px}.nav-hint{display:none}.footer{padding:12px 16px}.result-view{padding:35px 20px}.result-view h2{font-size:28px}}
+@media(max-width:390px){.brand-mark{display:none}.header{padding:12px}.sub-bar{padding:8px 12px}.score{font-size:11px}.quiz{padding:23px 15px}.instruction{max-width:95px;text-align:right}.footer{font-size:9px;gap:6px}.legend{gap:8px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrapper" id="appWrapper">
+  <header class="header">
+    <div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V3h16v18M12 3v18M3 21h18M9 10v4m6-4v4"/></svg></div><div><h1>Door System</h1><p>Rolling Stock Training</p></div></div>
+    <div class="header-actions"><span class="badge">MCQ practice</span><button type="button" class="small-btn" id="fullscreenBtn" aria-label="Enter fullscreen"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4"/></svg><span class="fullscreen-label">Fullscreen</span></button><button type="button" class="small-btn" id="restartBtn"><span aria-hidden="true">↻</span> Restart</button></div>
+  </header>
+  <div class="sub-bar"><button type="button" class="small-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="questionPanel"><span aria-hidden="true">☰</span> Questions</button><span class="counter" id="counter">Question 1 / 15</span><span class="score">Correct <strong id="score">0 / 15</strong></span></div>
+  <div class="progress-track" role="progressbar" aria-label="Questions answered" aria-valuemin="0" aria-valuemax="15" aria-valuenow="0" id="progress"><div class="progress-fill" id="progressFill"></div></div>
+  <aside class="question-panel" id="questionPanel" aria-label="Question navigation" hidden><div class="panel-head"><h2>All questions</h2><button type="button" class="small-btn" id="closeMenu" aria-label="Close question list">✕</button></div><div class="question-grid" id="questionGrid"></div><p class="panel-note">Choose a question to open it. ✓ Correct &nbsp; ✕ Incorrect<br>Each question is scored on your first answer.</p></aside>
+  <main>
+    <section class="quiz" id="quiz" aria-labelledby="question">
+      <div class="question-meta"><span class="eyebrow" id="questionNumber">Question 01</span><span class="instruction">Select one answer</span></div>
+      <h2 class="question" id="question" tabindex="-1"></h2>
+      <div class="options" id="options" role="group" aria-labelledby="question"></div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      <nav class="navigation" aria-label="Quiz navigation"><button type="button" class="nav-btn" id="prevBtn"><span aria-hidden="true">←</span> Previous</button><span class="nav-hint" id="navHint">Choose an answer to continue</span><button type="button" class="nav-btn primary" id="nextBtn" disabled>Next question <span aria-hidden="true">→</span></button></nav>
+    </section>
+    <section class="result-view" id="results" aria-labelledby="resultTitle" hidden>
+      <span class="eyebrow">Door System</span><h2 id="resultTitle" tabindex="-1">Quiz complete</h2><p class="result-intro">You have answered all 15 questions.</p>
+      <div class="result-score"><span id="finalScore">0</span><small> / 15</small></div><div class="result-percent" id="resultPercent"></div>
+      <div class="stats"><div class="stat correct"><strong id="correctTotal">0</strong><span>Correct</span></div><div class="stat wrong"><strong id="wrongTotal">0</strong><span>Incorrect</span></div><div class="stat"><strong>15</strong><span>Answered</span></div></div>
+      <div class="result-actions"><button type="button" class="nav-btn" id="reviewBtn">Review answers</button><button type="button" class="nav-btn primary" id="tryAgainBtn">↻ Try again</button></div><p class="result-note">Your score uses the first answer selected for each question.</p>
+    </section>
+  </main>
+  <footer class="footer"><span>DOOR SYSTEM · 15 OBJECTIVE-TYPE QUESTIONS</span><div class="legend"><span><i class="dot" aria-hidden="true"></i>Correct</span><span><i class="dot red" aria-hidden="true"></i>Incorrect</span></div></footer>
+  <dialog id="restartDialog" aria-labelledby="restartTitle" aria-describedby="restartDescription"><h2 id="restartTitle">Restart the quiz?</h2><p id="restartDescription">Your current answers and score will be cleared.</p><div class="dialog-actions"><button type="button" class="nav-btn" id="cancelRestart" autofocus>Keep going</button><button type="button" class="nav-btn primary" id="confirmRestart">Restart quiz</button></div></dialog>
+  <noscript><p style="padding:24px;text-align:center">Enable JavaScript in your browser to use this interactive quiz.</p></noscript>
+</div>
+<script id="quiz-data" type="application/json">[{"id": 1, "question": "Which of the following is not a key function of the door system?", "options": ["Prevents train movement when doors are not properly closed and locked", "Regulates the train's air-conditioning temperature", "Provides safe and convenient passenger entry and exit", "Opens and closes only under permitted operating conditions"], "correct": 1, "sourceSlide": 2, "explanation": null}, {"id": 2, "question": "Doors are automatically operated and controlled by:", "options": ["Train Control and Monitoring System", "Door Lock Out Switch", "The train's Door control system", "Door Open Push button"], "correct": 2, "sourceSlide": 3, "explanation": null}, {"id": 3, "question": "How long can the doors typically operate on battery power if high-voltage power is lost?", "options": ["Up to 1 hour", "Up to 30 minutes", "Up to 90 minutes", "Up to 20 minutes"], "correct": 0, "sourceSlide": 4, "explanation": null}, {"id": 4, "question": "What indication is created when all the 36 doors on the train are closed and locked?", "options": ["Door status fault  Indication", "Door Loop Indication", "Door Isolation indication", "Door Open and Close indication"], "correct": 1, "sourceSlide": 5, "explanation": null}, {"id": 5, "question": "Each saloon door is controlled by:", "options": ["Door Open and Close push button", "Train Control and Monitoring System", "A dedicated EDCU", "Door loop isolation switch"], "correct": 2, "sourceSlide": 6, "explanation": null}, {"id": 6, "question": "The manual unlocking assembly of the door operator is actuated via:", "options": ["Door Open and Close push button", "The EED or EAD", "TCMS control panel", "Door loop Isolation switch"], "correct": 1, "sourceSlide": 7, "explanation": null}, {"id": 7, "question": "For a manual door-open command by the Train Operator, which of the condition is not mandatory required?", "options": ["Service Brake applied condition", "Open push button pressed", "Train at standstill", "Emergency brake applied condition"], "correct": 3, "sourceSlide": 8, "explanation": null}, {"id": 8, "question": "If an obstacle is detected during closing, what happens to the DCU indicator light?", "options": ["It turns off completely", "It glows continuous", "It starts to flashes", "It changes its color to red"], "correct": 1, "sourceSlide": 9, "explanation": null}, {"id": 9, "question": "If an obstacle is detected while a door is closing, how many retry attempts occur before the door reopens?", "options": ["3", "1", "5", "2"], "correct": 0, "sourceSlide": 10, "explanation": null}, {"id": 10, "question": "The Traction Door Loop inhibits traction unless:", "options": ["The door loop is energized (all doors closed and locked)", "All the train doors are closed and locked except cab door", "Emergency brake is not applied condition", "All the doors are not isolated condition"], "correct": 0, "sourceSlide": 11, "explanation": null}, {"id": 11, "question": "How many EED (Emergency Egress Device) units are equipped per car?", "options": ["8", "4", "6", "2"], "correct": 1, "sourceSlide": 12, "explanation": null}, {"id": 12, "question": "How many EAD (Emergency Access Device) units are equipped per car?", "options": ["4", "2", "6", "88"], "correct": 1, "sourceSlide": 13, "explanation": null}, {"id": 13, "question": "How many ECS (Electrical Crew Switch) units are equipped per car, and how are they split?", "options": ["4 total — all inside", "4 total — 2 inside and 2 outside", "2 total, both inside", "4 total, all outside"], "correct": 1, "sourceSlide": 14, "explanation": null}, {"id": 14, "question": "The Electrical Crew Switch (ECS) has how many operating positions?", "options": ["Three — Close, Normal & Open", "Two – Open & Close", "Three – Open, Close & Isolated", "Two – Normal & Isolated"], "correct": 0, "sourceSlide": 15, "explanation": null}, {"id": 15, "question": "Pressing the wheelchair egress request push-button causes:", "options": ["A wheelchair icon to appear on the HMI for Increasing the dwell time", "A wheelchair icon to appear on the TCMS, where the driver to allow a longer stop", "Automatically it increases the dwell time for a defined longer stop", "It restrict the Train Operator to close the Train door immediately after the dwell time is over"], "correct": 1, "sourceSlide": 16, "explanation": null}]</script>
+<script>
+'use strict';
+// Questions and answer keys transcribed from MCQ-Door_System.pptx.
+// This file is self-contained and makes no network requests.
+const allQuestions = JSON.parse(document.getElementById('quiz-data').textContent);
+const QUESTIONS_PER_QUIZ = 5;
+const PASS_PERCENT = 80;
+const API_URL = 'https://www.zohoapis.in/creator/custom/cmrloperationaltraining/addOrUpdateQuizResult';
+const PUBLIC_KEY = 'Ag9kn8vF3vKDUX1FUVnZCneue';
+function pickQuestions(){
+  const a = allQuestions.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a.slice(0,Math.min(QUESTIONS_PER_QUIZ,a.length));
+}
+let questions = pickQuestions();
+let submitted = false;
+const validId=x=>/^\d{15,}$/.test(String(x||''));
+let VIDEO_ID='', LEARNER_ID='';
+const paramsReady=(async()=>{
+  const W=window.__QUIZ||{};
+  VIDEO_ID=String(W.videoId||'').trim();
+  LEARNER_ID=String(W.learnerId||'').trim();
+  console.log('[Quiz IDs]',VIDEO_ID,LEARNER_ID);
+})();
+const letters = ['A','B','C','D'];
+let current = 0;
+let answers = Array(questions.length).fill(null);
+const $ = id => document.getElementById(id);
+const completed = () => answers.filter(a => a !== null).length;
+const score = () => answers.reduce((n,a,i) => n + (a === questions[i].correct ? 1 : 0),0);
+function closeMenu(focus=false){$('questionPanel').hidden=true;$('menuBtn').setAttribute('aria-expanded','false');if(focus)$('menuBtn').focus();}
+function updateStats(){
+  $('score').textContent=score()+' / '+questions.length;
+  $('progressFill').style.width=(completed()/questions.length*100)+'%';
+  $('progress').setAttribute('aria-valuenow',completed());
+  $('progress').setAttribute('aria-valuetext',completed()+' of '+questions.length+' questions answered');
+  $('questionGrid').replaceChildren();
+  questions.forEach((q,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='jump-btn';b.textContent=i+1;
+    const state=answers[i]===null?'Not answered':answers[i]===q.correct?'Correct':'Incorrect';
+    b.setAttribute('aria-label','Question '+(i+1)+': '+state);
+    if(i===current&&!$('quiz').hidden){b.classList.add('current');b.setAttribute('aria-current','step');}
+    if(answers[i]!==null){b.classList.add(answers[i]===q.correct?'correct':'wrong');const s=document.createElement('span');s.className='jump-status';s.textContent=answers[i]===q.correct?'✓':'✕';s.setAttribute('aria-hidden','true');b.append(s);}
+    b.addEventListener('click',()=>goTo(i));$('questionGrid').append(b);
+  });
+} 
+function focusHeading(id){const target=$(id);target.focus({preventScroll:true});const rect=target.getBoundingClientRect();if(rect.top<16||rect.bottom>window.innerHeight-16)target.scrollIntoView({block:'start'});}
+function renderQuestion(focus=false){
+  $('quiz').hidden=false;$('results').hidden=true;
+  const q=questions[current],selected=answers[current],answered=selected!==null;
+  $('counter').textContent='Question '+(current+1)+' / '+questions.length;
+  $('questionNumber').textContent='Question '+String(current+1).padStart(2,'0');
+  $('question').textContent=q.question;
+  $('options').replaceChildren();
+  q.options.forEach((text,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='option';b.disabled=answered;
+    const letter=document.createElement('span');letter.className='letter';letter.textContent=letters[i];letter.setAttribute('aria-hidden','true');
+    const label=document.createElement('span');label.className='option-text';label.textContent=text;
+    const status=document.createElement('span');status.className='option-result';status.setAttribute('aria-hidden','true');
+    let accessLabel=letters[i]+'. '+text;
+    if(answered){
+      if(i===q.correct){b.classList.add('is-correct');status.textContent='✓';accessLabel+=' — Correct answer';}
+      else if(i===selected){b.classList.add('is-wrong');status.textContent='✕';accessLabel+=' — Incorrect answer';}
+      else b.classList.add('is-muted');
+      if(i===selected)accessLabel+=' — Your answer';
+    }
+    b.setAttribute('aria-label',accessLabel);b.append(letter,label,status);b.addEventListener('click',()=>selectAnswer(i));$('options').append(b);
+  });
+  const feedback=$('feedback');feedback.className='feedback';feedback.replaceChildren();
+  const icon=document.createElement('span');icon.className='feedback-icon';icon.setAttribute('aria-hidden','true');
+  const message=document.createElement('span');
+  if(!answered){icon.textContent='i';message.textContent='Click an option to check your answer.';}
+  else{
+    const correct=selected===q.correct;feedback.classList.add(correct?'good':'bad');icon.textContent=correct?'✓':'✕';
+    const lead=document.createElement('strong');lead.textContent=correct?'Correct answer. ':'Incorrect answer. ';message.append(lead);
+    message.append(document.createTextNode((correct?'':'Correct answer: ')+letters[q.correct]+'. '+q.options[q.correct]));
+  }
+  feedback.append(icon,message);
+  $('prevBtn').disabled=current===0;
+  $('nextBtn').disabled=!answered;
+  const complete=completed()===questions.length;
+  $('nextBtn').textContent=current===questions.length-1?(complete?'View results →':'Next unanswered →'):'Next question →';
+  $('navHint').textContent=answered?completed()+' of '+questions.length+' answered':'Choose an answer to continue';
+  updateStats();
+  if(focus)focusHeading('question');
+}
+function selectAnswer(index){
+  if(answers[current]!==null)return;
+  answers[current]=index;renderQuestion();$('nextBtn').focus({preventScroll:true});
+}
+function goTo(index){current=Math.max(0,Math.min(index,questions.length-1));closeMenu();renderQuestion(true);}
+function showResults(){
+  if(completed()!==questions.length){goTo(answers.indexOf(null));return;}
+  closeMenu();$('quiz').hidden=true;$('results').hidden=false;$('counter').textContent='Quiz complete';
+  $('finalScore').textContent=score();$('correctTotal').textContent=score();$('wrongTotal').textContent=questions.length-score();
+  $('resultPercent').textContent=Math.round(score()/questions.length*100)+'% correct';updateStats();focusHeading('resultTitle');submitResult();
+}
+function restart(){questions=pickQuestions();answers=Array(questions.length).fill(null);current=0;submitted=false;closeMenu();if($('restartDialog').open)$('restartDialog').close();renderQuestion(true);}
+function requestRestart(){if(completed()===0){restart();return;}$('restartDialog').showModal();}
+$('nextBtn').addEventListener('click',()=>{if(answers[current]===null)return;if(current===questions.length-1)showResults();else goTo(current+1);});
+$('prevBtn').addEventListener('click',()=>goTo(current-1));
+$('menuBtn').addEventListener('click',()=>{const show=$('questionPanel').hidden;$('questionPanel').hidden=!show;$('menuBtn').setAttribute('aria-expanded',String(show));if(show){updateStats();$('closeMenu').focus();}});
+$('closeMenu').addEventListener('click',()=>closeMenu(true));
+document.addEventListener('click',e=>{if(!$('questionPanel').hidden&&!$('questionPanel').contains(e.target)&&!$('menuBtn').contains(e.target))closeMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('questionPanel').hidden){closeMenu(true);}});
+$('restartBtn').addEventListener('click',requestRestart);$('tryAgainBtn').addEventListener('click',restart);
+$('cancelRestart').addEventListener('click',()=>$('restartDialog').close());$('confirmRestart').addEventListener('click',restart);
+$('reviewBtn').addEventListener('click',()=>goTo(0));
+
+/* "15" nu hard-code irukkura texts-ah dynamic-a maathum */
+function syncTotals(){
+  const n=questions.length;
+  const set=(sel,t)=>{const el=document.querySelector(sel);if(el)el.textContent=t;};
+  set('.result-intro','You have answered all '+n+' questions.');
+  set('.result-score small',' / '+n);
+  set('.stat:nth-child(3) strong',n);
+  const f=document.querySelector('.footer > span');
+  if(f)f.textContent=f.textContent.replace(/\d+(?=\s+OBJECTIVE)/,n);
+  $('progress').setAttribute('aria-valuemax',n);
+}
+syncTotals();
+renderQuestion();
+
+/* Deluge custom API-ku result anupum */
+async function submitResult(){
+  if(submitted)return; submitted=true;
+  let box=$('saveStatus');
+  if(!box){box=document.createElement('p');box.id='saveStatus';box.className='result-note';$('results').append(box);}
+  await paramsReady;
+  if(!validId(VIDEO_ID)||!validId(LEARNER_ID)){
+    submitted=false;
+    box.textContent='Result not saved: invalid video / learner link.';
+    console.error('[Quiz] Invalid IDs',{VIDEO_ID,LEARNER_ID});
+    return;
+  }
+  const pct=Math.round(score()/questions.length*100);
+  const payload={videoId:VIDEO_ID,learnerId:LEARNER_ID,score:pct,status:pct>=PASS_PERCENT?'Pass':'Fail'};
+  const request={api_name:'addOrUpdateQuizResult',workspace_name:'cmrloperationaltraining',http_method:'POST',public_key:PUBLIC_KEY,payload:{jsonParam:JSON.stringify(payload)}};
+  console.log('[Quiz] JSON payload:',payload);
+  box.textContent='Saving your result…';
+  try{
+    const res=await ZOHO.CREATOR.API.invokeCustomApi(request);
+    console.log('[Quiz] <<< API RESPONSE:',JSON.stringify(res,null,2));
+    if(/success/i.test(JSON.stringify(res))){box.textContent='✓ Result saved.';}
+    else{submitted=false;box.textContent='Could not save result. Please try again.';}
+  }catch(e){
+    submitted=false;
+    box.textContent='Could not save result. Check your connection.';
+    console.error('[Quiz] API ERROR:',e);
+  }
+}
+if(!document.fullscreenEnabled)$('fullscreenBtn').hidden=true;
+$('fullscreenBtn').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('appWrapper').requestFullscreen();}catch{ $('fullscreenBtn').hidden=true; }});
+document.addEventListener('fullscreenchange',()=>{const active=!!document.fullscreenElement;$('fullscreenBtn').setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');$('fullscreenBtn').querySelector('.fullscreen-label').textContent=active?'Exit fullscreen':'Fullscreen';});
+renderQuestion();
+</script>
+</body>
+</html>
